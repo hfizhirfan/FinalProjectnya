@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600;700&display=swap");
-#audio-player {
-  display: none;
-}
+
 .navbar {
   background-color: #cc040c;
 }
@@ -144,7 +142,7 @@ section {
 }
 
 .menu-item .stars {
-  color: #f58d17;
+  color: #cc040c;
 }
 
 /* Features */
