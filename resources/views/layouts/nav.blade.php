@@ -9,13 +9,13 @@
             <img style="width: 75%;" src="{{ Vite::asset('resources/images/Group 26.png')}}" alt="image">
         </a>
         <li class="nav-item col-md-auto mt-3">
-            <a href="{{route('admin.dashboard')}}" class="nav-link">
+            <a href="{{route('dashboard.index')}}" class="nav-link">
                 <i class="bi bi-house-fill pe-1"></i>
                 <span class="">Dashboard</span>
             </a>
         </li>
         <li class="nav-item col-md-auto">
-            <a href="#" class="nav-link">
+            <a href="{{route('kategori.index')}}" class="nav-link">
                 <i class="bi bi-tags-fill"></i>
                 <span class="">Data Kategori</span>
             </a>

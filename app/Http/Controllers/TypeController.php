@@ -3,18 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Type;
+use Illuminate\Support\Facades\DB;
 
-class DashboardController extends Controller
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $pageTitle = 'Dashboard';
+        // Eloquent
+        $types = Type::all();
 
-        return view('admin.dashboard.index', [
+        $pageTitle = 'Data Kategori';
+
+        return view('admin.type.index', [
             'pageTitle' => $pageTitle,
+            'types' => $types
         ]);
     }
 
