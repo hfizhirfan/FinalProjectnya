@@ -4,18 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $pageTitle = 'Dashboard';
-
-        return view('admin.dashboard.index', [
-            'pageTitle' => $pageTitle,
-        ]);
+        //
     }
 
     /**

@@ -1,4 +1,6 @@
 import "./bootstrap";
+import 'datatables.net-bs5';
+import 'datatables.net-buttons-bs5';
 import.meta.glob(["../images/**"]);
 
 var menu_btn = document.querySelector("#menu-btn");

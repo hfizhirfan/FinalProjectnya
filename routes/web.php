@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TypeController;
+use Illuminate\Support\Facades\Auth;    
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +27,6 @@ Auth::routes([
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::resource('admin/dashboard', DashboardController::class);
+    Route::resource('admin/kategori', TypeController::class);
 });
