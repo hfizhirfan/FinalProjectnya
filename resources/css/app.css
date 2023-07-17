@@ -56,13 +56,12 @@ section {
 .btn-brand {
   color: #fff;
   font-weight: 500;
-  border-color: #cc040c;
+  border-color: #fff;
   background-color: #cc040c;
 }
 
 .btn-brand:hover {
-  border-color: #cc040c;
-  background-color: #cc040c;
+  border-color: #fff;
   color: #fff;
 }
 
@@ -142,7 +141,7 @@ section {
 }
 
 .menu-item .stars {
-  color: #cc040c;
+  color: #ffd700;
 }
 
 /* Features */
@@ -191,7 +190,7 @@ section {
 }
 
 .review .stars {
-  color: #cc040c;
+  color: #ffd700;
 }
 
 #reviews .carousel-indicators {
