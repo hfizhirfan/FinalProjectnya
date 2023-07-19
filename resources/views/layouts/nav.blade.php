@@ -21,7 +21,7 @@
             </a>
         </li>
         <li class="nav-item col-md-auto">
-            <a href="#" class="nav-link">
+            <a href="{{route('product.index')}}" class="nav-link">
                 <i class="bi bi-basket-fill"></i>
                 <span class="">Data Menu</span>
             </a>

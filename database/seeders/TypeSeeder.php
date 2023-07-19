@@ -16,11 +16,37 @@ class TypeSeeder extends Seeder
     {
         DB::table('types')->insert([
             [
-                'name_type' => 'Nasi', 
+                'kode_tipe' => 'MI',
+                'nama_tipe' => 'Mie'
             ],
             [
-                'name_type' => 'Soto', 
+                'kode_tipe' => 'SY',
+                'nama_tipe' => 'Sayur'
             ],
+            [
+                'kode_tipe' => 'AY',
+                'nama_tipe' => 'Ayam'
+            ],
+            [
+                'kode_tipe' => 'IK',
+                'nama_tipe' => 'Ikan'
+            ],
+            [
+                'kode_tipe' => 'DG',
+                'nama_tipe' => 'Daging'
+            ],
+            [
+                'kode_tipe' => 'NS',
+                'nama_tipe' => 'Nasi'
+            ],
+            [
+                'kode_tipe' => 'ST',
+                'nama_tipe' => 'Soto'
+            ],
+            [
+                'kode_tipe' => 'PD',
+                'nama_tipe' => 'Puding'
+            ]
         ]);
     }
 }

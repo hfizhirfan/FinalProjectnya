@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Type;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -11,7 +14,15 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        // Eloquent
+        $products = Product::all();
+
+        $pageTitle = 'Daftar Menu';
+
+        return view('admin.product.index', [
+            'pageTitle' => $pageTitle,
+            'products' => $products
+        ]);
     }
 
     /**
@@ -19,15 +30,16 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        
     }
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -43,7 +55,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**
@@ -51,7 +63,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
     }
 
     /**
@@ -59,6 +71,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Product::find($id)->delete();
+        return redirect()->route('product.index')->with('success','Produk berhasil dihapus');
     }
 }

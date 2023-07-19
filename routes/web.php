@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TypeController;
 use Illuminate\Support\Facades\Auth;    
 
@@ -29,4 +30,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware(['auth'])->group(function () {
     Route::resource('admin/dashboard', DashboardController::class);
     Route::resource('admin/kategori', TypeController::class);
+    Route::resource('admin/product', ProductController::class );
 });

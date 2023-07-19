@@ -24,31 +24,25 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Gambar</th>
                                 <th>Nama</th>
+                                <th>Harga</th>
+                                <th>Kategori</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($types as $type)
+                            @foreach ($products as $product)
                                 <tr>
-                                    <td>{{ $type->id }}</td>
-                                    <td>{{ $type->nama_tipe }}</td>
-                                    <td>@include('admin.type.actions')</td>
+                                    <td>{{ $product->id }}</td>
+                                    <td><img src="{{ Vite::asset('resources/images/menu/' . $product->image) }}" alt="Product Image" width="100" height="80"></td>
+                                    <td>{{ $product->name_product }}</td>
+                                    <td>Rp. {{ $product->price }}</td>
+                                    <td>{{ $product->type->nama_tipe }}</td>
+                                    <td>@include('admin.product.actions')</td>
                                 </tr>
                             @endforeach
                         </tbody>
-                        {{-- <tbody>
-                            @foreach ($employees as $employee)
-                                <tr>
-                                    <td>{{ $employee->firstname }}</td>
-                                    <td>{{ $employee->lastname }}</td>
-                                    <td>{{ $employee->email }}</td>
-                                    <td>{{ $employee->age }}</td>
-                                    <td>{{ $employee->position->name }}</td>
-                                    <td>@include('employee.actions')</td>
-                                </tr>
-                            @endforeach
-                        </tbody> --}}
                     </table>
                 </div>
             </div>
