@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Type;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -30,7 +31,11 @@ class ProductController extends Controller
      */
     public function create()
     {
-        
+        $pageTitle = 'Tambah Menu';
+
+        $types = Type::all();
+
+        return view('admin.product.create', compact('pageTitle', 'types'));
     }
 
 
@@ -39,7 +44,35 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $messages = [
+            'required' => ':Attribute harus diisi.',
+            'numeric' => 'Isi :attribute dengan angka',
+            'image' => 'Isi :attribute dengan jpg, jpeg, png, bmp, gif, svg, atau webp saja',
+            'max' => 'Ukuran gambar tidak boleh lebih dari 2MB.'
+        ];
+    
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|max:2048',
+            'name_product' => 'required',
+            'price' => 'required|numeric',
+        ], $messages);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $image = $request->file('image');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->move(resource_path('images/menu'), $imageName);
+
+        $product = New Product();
+        $product->name_product = $request->name_product;
+        $product->price = $request->price;
+        $product->image = $imageName;
+        $product->type_id = $request->type;
+        $product->save();
+
+        return redirect()->route('product.index');
     }
 
     /**
@@ -47,7 +80,12 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pageTitle = 'Detail Menu';
+
+        // Eloquent
+        $product = Product::find($id);
+
+        return view('admin.product.show', compact('pageTitle', 'product'));
     }
 
     /**
@@ -55,7 +93,13 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        
+        $pageTitle = 'Edit Menu';
+
+        // Eloquent
+        $types = Type::all();
+        $product = Product::find($id);
+
+        return view('admin.product.edit', compact('pageTitle', 'types', 'product'));
     }
 
     /**

@@ -36,3 +36,5 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
 // untuk user
 Route::middleware('guest')->get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('download-file/{productId}', [ProductController::class, 'downloadFile'])->name('product.downloadFile');
