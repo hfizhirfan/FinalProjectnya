@@ -3,3 +3,24 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 @import "bootstrap-icons/font/bootstrap-icons.css";
+
+
+.navbar {
+    margin-bottom: 60px; /* Atur jarak bawah navbar */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+// Menggunakan variabel untuk lebar dan tinggi yang ingin diubah
+$width: 70px;
+$height: 30px;
+
+// Gaya elemen input
+#quantity {
+  width: $width;
+  height: $height;
+  // Gaya lain yang diinginkan untuk elemen input
+}
