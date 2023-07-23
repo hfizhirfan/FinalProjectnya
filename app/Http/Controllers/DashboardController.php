@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class DashboardController extends Controller
 {
@@ -13,8 +14,11 @@ class DashboardController extends Controller
     {
         $pageTitle = 'Dashboard';
 
+        $productCount = Product::count();
+
         return view('admin.dashboard.index', [
             'pageTitle' => $pageTitle,
+            'product_count' => $productCount
         ]);
     }
 

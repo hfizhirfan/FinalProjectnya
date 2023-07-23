@@ -37,18 +37,6 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        {{-- <tbody>
-                            @foreach ($employees as $employee)
-                                <tr>
-                                    <td>{{ $employee->firstname }}</td>
-                                    <td>{{ $employee->lastname }}</td>
-                                    <td>{{ $employee->email }}</td>
-                                    <td>{{ $employee->age }}</td>
-                                    <td>{{ $employee->position->name }}</td>
-                                    <td>@include('employee.actions')</td>
-                                </tr>
-                            @endforeach
-                        </tbody> --}}
                     </table>
                 </div>
             </div>
@@ -56,3 +44,10 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+    <script type="module">
+        $(document).ready(function() {
+            $('#employeeTable').DataTable();
+        });
+    </script>
+@endpush

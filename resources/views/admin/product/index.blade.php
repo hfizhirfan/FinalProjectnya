@@ -11,7 +11,7 @@
                 <div class="col-lg-3 col-xl-6">
                     <ul class="list-inline  float-end">
                         <li class="list-inline-item">
-                            <a href="#" class="btn btn-primary">
+                            <a href="{{ route('product.create')}}" class="btn btn-primary">
                                 <i class="bi bi-plus-circle me-1"></i> Tambah Data
                             </a>
                         </li>
@@ -50,3 +50,10 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+    <script type="module">
+        $(document).ready(function() {
+            $('#employeeTable').DataTable();
+        });
+    </script>
+@endpush
