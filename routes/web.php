@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;    
 
 /*
@@ -25,10 +26,13 @@ Auth::routes([
     'register' => false,
 ]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// untuk admin
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource('admin/dashboard', DashboardController::class);
-    Route::resource('admin/kategori', TypeController::class);
-    Route::resource('admin/product', ProductController::class );
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::resource('/dashboard', DashboardController::class);
+    Route::resource('/kategori', TypeController::class);
+    Route::resource('/product', ProductController::class );
 });
+
+// untuk user
+Route::middleware('guest')->get('/home', [HomeController::class, 'index'])->name('home');
