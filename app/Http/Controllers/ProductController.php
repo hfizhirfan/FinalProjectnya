@@ -27,28 +27,36 @@ class ProductController extends Controller
 
     public function cart()
     {
-        return view('cart');
+        $pageTitle = "Cart"; // Tambahkan judul halaman di sini
+        $products = Product::all(); // Mengambil semua data produk dari tabel produk
+        return view('cart', compact('pageTitle', 'products')); // Mengirimkan variabel $pageTitle dan $products ke tampilan "cart.blade.php"
+
     }
     public function addToCart($id)
-    {
-        $products = Product::findOrFail($id);
+{
+    $product = Product::find($id);
 
-        $cart = session()->get('cart', []);
-
-        if(isset($cart[$id])) {
-            $cart[$id]['quantity']++;
-        }  else {
-            $cart[$id] = [
-                "name_product" => $products->name_product,
-                "image" => $products->image,
-                "price" => $products->price,
-                "quantity" => 1
-            ];
-        }
-
-        session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Product add to cart successfully!');
+    if (!$product) {
+        return redirect()->back()->with('error', 'Product not found!');
     }
+
+    $cart = session()->get('cart', []);
+
+    if (isset($cart[$id])) {
+        $cart[$id]['quantity']++;
+    } else {
+        $cart[$id] = [
+            'name' => $product->name_product,
+            'price' => $product->price,
+            'quantity' => 1,
+            'image' => $product->image,
+        ];
+    }
+
+    session()->put('cart', $cart);
+
+    return redirect()->back()->with('success', 'Product added to cart successfully!');
+}
 
     /**
      * Show the form for creating a new resource.
@@ -120,42 +128,8 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        $messages = [
-            'required' => 'Attribute harus diisi',
-            'numeric' => 'Isi : attribute dengan angka',
-            'image' => 'Isi : attribute dengan jpg, jpeg, png, bmp, gif, svg, atau webp saja'
-        ];
-        $validator = Validator::make($request->all(), [
-            'name_product'=>'required',
-            'price'=>'required|numeric',
-            'image'=>'image',
-        ], $messages);
-        if ($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-        if ($request->hasFile('image')){
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(resource_path('images/nft'), $imageName);
-            $tambahNFT = Product::find($id);
-            $tambahNFT->name_product = $request->name_product;
-            $tambahNFT->price = $request->price;
-            $tambahNFT->image = $imageName;
-            $tambahNFT->type_id = $request->type;
-            $tambahNFT->save();
-
-        }else{
-            $tambahNFT = Product::find($id);
-            $tambahNFT->name_product = $request->name_product;
-            $tambahNFT->price = $request->price;
-            $tambahNFT->type_id = $request->type;
-            $tambahNFT->save();
-        }
-        return redirect()->route('admin.menu.index');
-
-
         if($request->id && $request->quantity){
             $cart = session()->get('cart');
             $cart[$request->id]["quantity"] = $request->quantity;
@@ -163,6 +137,8 @@ class ProductController extends Controller
             session()->flash('success', 'Cart successfully updated!');
         }
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -175,7 +151,7 @@ class ProductController extends Controller
                 unset($cart[$request->id]);
                 session()->put('cart', $cart);
             }
-            session()->flash('success', 'Product successfully removed!');
+            session()->flash('success', 'Product removed successfully');
         }
     }
 
@@ -191,5 +167,19 @@ class ProductController extends Controller
         $types = Type::all();;
 
         return view('menu', compact('types'));
+    }
+
+    public function getProducts()
+    {
+        $products = Product::all(); // Mengambil semua data produk dari tabel produk
+        return view('cart', compact('products'));
+    }
+
+    public function getProductsByType($type_id)
+    {
+        $type = Type::findOrFail($type_id);
+        $products = $type->products;
+
+        return view('index', compact('products'));
     }
 }

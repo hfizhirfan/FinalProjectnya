@@ -25,8 +25,6 @@ Route::get('cart', [ProductController::class, 'cart'])->name('cart');
 Route::get('add-to-cart/{id}', [ProductController::class, 'addToCart'])->name('add_to_cart');
 Route::patch('update-cart', [ProductController::class, 'update'])->name('update_cart');
 Route::delete('remove-from-cart', [ProductController::class, 'remove'])->name('remove_from_cart');
-// Route::resource('/employees', EmployeeController::class);
-// Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
-// Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
-// Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');;
+Route::get('/index/{type_id}', [ProductController::class, 'getProductsByType'])->name('products.index');
+
 
