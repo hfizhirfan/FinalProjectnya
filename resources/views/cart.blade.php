@@ -46,7 +46,7 @@
         <tbody>
             @php $total = 0 @endphp
             @if(session('cart'))
-                @foreach(session('cart') as $id => $details)
+                @foreach((array)session('cart') as $id => $details)
                     @php $total += $details['price'] * $details['quantity'] @endphp
                     <tr data-id="{{ $id }}">
                         <td data-th="Product">
