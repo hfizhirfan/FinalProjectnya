@@ -21,6 +21,12 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                // Jika pengguna sudah diautentikasi dan mencoba mengakses URL /home,
+                // maka pengguna akan diarahkan ke halaman admin dashboard
+                if ($request->is('home')) {
+                    return redirect('admin/dashboard');
+                }
+
                 return redirect(RouteServiceProvider::HOME);
             }
         }
