@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Type;
 use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TypeController extends Controller
 {
@@ -60,6 +61,8 @@ class TypeController extends Controller
             $category->kode_tipe = $data['code'];
             $category->nama_tipe = $data['name'];
             $category->save();
+
+            Alert::success('Added Successfully', 'Data Menu Added Successfully.');
 
             return $this->respondRedirectMessage('kategori.index');
         } catch (\Exception $e) {
@@ -123,6 +126,8 @@ class TypeController extends Controller
                 'nama_tipe' => $data['name']
             ]);
 
+            Alert::success('Changed Successfully', 'Menu Data Changed Successfully.');
+
             return $this->respondRedirectMessage('kategori.index');
         } catch (\Exception $e) {
             return "{$e->getMessage()}, {$e->getCode()}";
@@ -138,7 +143,10 @@ class TypeController extends Controller
             $category = Type::findOrFail($id);
             $category->products()->delete();
             $category->delete();
-            return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus');
+
+            Alert::success('Deleted Successfully', 'Data Menu Deleted Successfully.');
+
+            return redirect()->route('kategori.index');
         } catch (\Exception $e) {
             return "{$e->getMessage()}, {$e->getCode()}";
         }

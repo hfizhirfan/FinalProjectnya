@@ -12,10 +12,10 @@
 <body>
     <div class="container-sm mt-5">
         <div class="row justify-content-center">
-            <div class="p-5 bg-danger rounded-3 border col-xl-4">
+            <div class="p-5 rounded-3 border col-xl-4" style="background-color: #CC040C;">
                 <div class="mb-2 text-center">
                     <img src="{{ Vite::asset('resources/images/Group 26.png')}}" alt="image">
-                    <h4 class="fs-5 fw-bold">Welcome to Admin</h4>
+                    <h4 class="fs-5 pt-2 fw-bold text-light">Admin RRN Restaurant</h4>
                 </div>
                 <div class="form my-3">
                 <hr>
@@ -23,17 +23,17 @@
                     @csrf
 
                     <div class="row mb-3">
-                        <label for="email" class="mb-2">{{ __('Email') }}</label>
+                        <label for="email" class="mb-2 text-light">{{ __('Email') }}</label>
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Enter Your Email" autofocus>
                         @error('email')
-                            <span class="invalid-feedback" role="alert">
+                            <span class="invalid-feedback text-dark" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                     </div>
 
                     <div class="row mb-3">
-                        <label for="password" class="mb-2">{{ __('Password') }}</label>
+                        <label for="password" class="mb-2 text-light">{{ __('Password') }}</label>
                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Enter Your Password">
                         @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -43,7 +43,7 @@
                     </div>
                     <hr>
                     <div class="row pt-2">
-                        <button type="submit" class="btn btn-secondary btn-lg mt-3 ">
+                        <button type="submit" class="btn btn-dark btn-lg mt-3 ">
                             <i class="bi bi-box-arrow-right"></i> {{ __('Login') }}
                         </button>
                     </div>
