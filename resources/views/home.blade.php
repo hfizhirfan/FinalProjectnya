@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<br><br>
 <div class="container">
     <div id="carouselExample" class="carousel slide">
         <div class="carousel-inner">

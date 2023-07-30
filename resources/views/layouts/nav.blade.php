@@ -12,9 +12,9 @@
         <hr class="d-lg-none text-white-50">
 
         <ul class="navbar-nav flex-row flex-wrap ms-auto">
-            <li class="nav-item col-2 col-md-auto me-2 me-md-4"><a href="{{ route('home') }}" class="nav-link navbar-text fs-5">Home</a></li>
+            <li class="nav-item col-2 col-md-auto me-2 me-md-4"><a href="{{ route('home') }}" class="nav-link active navbar-text fs-5">Home</a></li>
             <li class="nav-item col-2 col-md-auto me-2 me-md-4"><a href="{{ route('order.index') }}" class="nav-link active navbar-text fs-5">Menu</a></li>
-            <li class="nav-item col-2 col-md-auto"><a href="" class="nav-link navbar-text fs-5">Checkout</a></li>
+
         </ul>
       </div>
     </div>

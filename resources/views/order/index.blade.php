@@ -1,16 +1,6 @@
 @extends('layouts.app')
 @section('content')
-{{-- <div class="container" style="display: flex; justify-content: center;">
-    <button type="button" class="btn" style="margin:10px; background-color: #CC040C; color: white;">All Menu</button>
-    <button type="button" class="btn" style="margin:10px; background-color: #CC040C; color: white;">Mie</button>
-    <button type="button" class="btn" style="margin:10px; background-color: #CC040C; color: white;">Sayur</button>
-    <button type="button" class="btn" style="margin:10px; background-color: #CC040C; color: white;">Ayam</button>
-    <button type="button" class="btn" style="margin:10px; background-color: #CC040C; color: white;">Ikan</button>
-    <button type="button" class="btn" style="margin:10px; background-color: #CC040C; color: white;">Daging</button>
-    <button type="button" class="btn" style="margin:10px; background-color: #CC040C; color: white;">Nasi</button>
-    <button type="button" class="btn" style="margin:10px; background-color: #CC040C; color: white;">Soto</button>
-    <button type="button" class="btn" style="margin:10px; background-color: #CC040C; color: white;">Puding</button>
-</div> --}}
+<br><br>
 
 
 
