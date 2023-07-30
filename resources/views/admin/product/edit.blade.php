@@ -103,7 +103,15 @@
                                 </div>
                             </div>
                             <div class="row m-3">
-                                <label for="image" class="form-label">Image Menu</label>
+                                <label for="age" class="form-label">Image Menu</label>
+                                @if ($product->image)
+                                    <img src="{{ asset('storage/menu/' . $product->encrypted_image) }}" alt="Product Image" style="width: 25%;" ></td>
+                                @else
+                                    <h5>Tidak ada</h5>
+                                @endif
+                            </div>
+                            <div class="row m-3">
+                                <label for="image" class="form-label">Upload New Image</label>
                                 <div class="col-sm-10">
                                     <input class="form-control @error('image') is-invalid @enderror" type="file" name="image" id="image" value="{{ old('image',$product->image) }}">
                                     @error('image')
@@ -123,7 +131,7 @@
                                                 $selected = $product->type_id;
                                         @endphp
                                         @foreach ($types as $type)
-                                            <option value="{{ $product->id }}" {{ $selected == $product->id ? 'selected' : '' }}>{{ $type->kode_tipe.' - '.$type->nama_tipe }}</option>
+                                            <option value="{{ $type->id }}" {{ $selected == $type->id ? 'selected' : '' }}>{{ $type->kode_tipe.' - '.$type->nama_tipe }}</option>
                                         @endforeach
                                     </select>
                                     @error('type')
