@@ -34,40 +34,25 @@ class TypeController extends Controller
      */
     public function store()
     {
-        $data = request()->except(['_token']);
+         $messages = [
+            'required' => ':Attribute harus diisi.'
+        ];
+    
+        $validator = Validator::make($request->all(), [
+            'code' => 'required',
+            'name' => 'required',
+        ], $messages);
 
-        try {
-            $validator = Validator::make(
-                $data,
-                [
-                    'code' => 'required|min:1',
-                    'name' => 'required|min:3'
-                ],
-                [
-                    'required' => ':Attribute harus diisi.',
-                    'min' => ':Attribute terlalu pendek.'
-                ],
-                [
-                    'code' => 'Kode Kategori',
-                    'name' => 'Nama Kategori'
-                ]
-            );
-
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-
-            $category = new Type();
-            $category->kode_tipe = $data['code'];
-            $category->nama_tipe = $data['name'];
-            $category->save();
-
-            Alert::success('Added Successfully', 'Data Menu Added Successfully.');
-
-            return $this->respondRedirectMessage('kategori.index');
-        } catch (\Exception $e) {
-            return "{$e->getMessage()}, {$e->getCode()}";
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        $category = new Type();
+        $category->kode_tipe = $request->code;
+        $category->nama_tipe = $request->name;
+        $category->save();
+
+        return redirect()->route('kategori.index');
     }
 
     /**
