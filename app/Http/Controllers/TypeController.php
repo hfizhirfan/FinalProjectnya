@@ -94,25 +94,39 @@ class TypeController extends Controller
      */
     public function update(string $id)
     {
-        $messages = [
-            'required' => ':Attribute harus diisi.'
-        ];
-    
-        $validator = Validator::make($request->all(), [
-            'code' => 'required',
-            'name' => 'required',
-        ], $messages);
+        $data = request()->except(['_token']);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+        try {
+            $validator = Validator::make(
+                $data,
+                [
+                    'code' => 'required|min:1',
+                    'name' => 'required|min:3'
+                ],
+                [
+                    'required' => ':Attribute harus diisi.',
+                    'min' => ':Attribute terlalu pendek.'
+                ],
+                [
+                    'code' => 'Kode Kategori',
+                    'name' => 'Nama Kategori'
+                ]
+            );
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $category = Type::findOrFail($id);
+            $category->update([
+                'kode_tipe' => $data['code'],
+                'nama_tipe' => $data['name']
+            ]);
+
+            return $this->respondRedirectMessage('kategori.index');
+        } catch (\Exception $e) {
+            return "{$e->getMessage()}, {$e->getCode()}";
         }
-
-        $category = new Type();
-        $category->kode_tipe = $request->code;
-        $category->nama_tipe = $request->name;
-        $category->save();
-
-        return redirect()->route('kategori.index');
     }
 
     /**
