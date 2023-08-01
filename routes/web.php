@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;    
 
 /*
@@ -19,8 +20,18 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::get('/order/create/{id}',[OrderController::class, 'create'])->name('order.create');
+
+Route::resource('order', OrderController::class);
+
+Route::get('exportPdf/{id}', [OrderController::class, 'exportPdf'])->name('order.exportPdf');
+
+Route::get('/home', HomeController::class, 'index')->name('home');
+
+
 
 Auth::routes([
     'register' => false,
@@ -35,6 +46,5 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 });
 
 // untuk user
-Route::middleware('guest')->get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('download-file/{productId}', [ProductController::class, 'downloadFile'])->name('product.downloadFile');
