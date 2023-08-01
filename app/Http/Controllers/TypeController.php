@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Type;
+use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
@@ -12,10 +14,18 @@ class TypeController extends Controller
      */
     public function index()
     {
-        return view('admin.type.index', [
-            'pageTitle' => 'Data Kategori',
-            'types' => Type::all()
-        ]);
+    //     return view('admin.type.index', [
+    //         'pageTitle' => 'Data Kategori',
+    //         'types' => Type::all()
+    //     ]);
+    $types = Type::all();
+
+    $pageTitle = 'Daftar Kategori';
+
+    return view('admin.type.index', [
+        'pageTitle' => $pageTitle,
+        'types' => $types
+    ]);
     }
 
     /**
@@ -31,40 +41,27 @@ class TypeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store()
+    public function store(Request $request)
     {
-        $data = request()->except(['_token']);
+        $messages = [
+            'required' => ':Attribute harus diisi.'
+        ];
+    
+        $validator = Validator::make($request->all(), [
+            'code' => 'required',
+            'name' => 'required',
+        ], $messages);
 
-        try {
-            $validator = Validator::make(
-                $data,
-                [
-                    'code' => 'required|min:1',
-                    'name' => 'required|min:3'
-                ],
-                [
-                    'required' => ':Attribute harus diisi.',
-                    'min' => ':Attribute terlalu pendek.'
-                ],
-                [
-                    'code' => 'Kode Kategori',
-                    'name' => 'Nama Kategori'
-                ]
-            );
-
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-
-            $category = new Type();
-            $category->kode_tipe = $data['code'];
-            $category->nama_tipe = $data['name'];
-            $category->save();
-
-            return $this->respondRedirectMessage('kategori.index');
-        } catch (\Exception $e) {
-            return "{$e->getMessage()}, {$e->getCode()}";
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        $category = new Type();
+        $category->kode_tipe = $request->code;
+        $category->nama_tipe = $request->name;
+        $category->save();
+
+        return redirect()->route('kategori.index');
     }
 
     /**
@@ -72,61 +69,57 @@ class TypeController extends Controller
      */
     public function show(string $id)
     {
-        return view('admin.type.show', [
-            'pageTitle' => 'Detail Kategori',
-            'category' => Type::findOrFail($id)
-        ]);
+
+        $pageTitle = 'Detail Kategori';
+
+        // Eloquent
+        $category = Type::find($id);
+
+        return view('admin.type.show', compact('pageTitle', 'category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, string $id)
     {
-        return view('admin.type.edit', [
-            'pageTitle' => 'Edit Kategori',
-            'category' => Type::findOrFail($id)
-        ]);
+
+        $pageTitle = 'Edit Kategori';
+
+        $category = Type::find($id);
+
+        return view('admin.type.edit', compact('pageTitle', 'category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(string $id)
+    public function update(Request $request, string $id)
     {
-        $data = request()->except(['_token']);
+        $messages = [
+            'required' => ':Attribute harus diisi.'
+        ];
+    
+        $validator = Validator::make($request->all(), [
+            'code' => 'required',
+            'name' => 'required',
+        ], $messages);
 
-        try {
-            $validator = Validator::make(
-                $data,
-                [
-                    'code' => 'required|min:1',
-                    'name' => 'required|min:3'
-                ],
-                [
-                    'required' => ':Attribute harus diisi.',
-                    'min' => ':Attribute terlalu pendek.'
-                ],
-                [
-                    'code' => 'Kode Kategori',
-                    'name' => 'Nama Kategori'
-                ]
-            );
-
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-
-            $category = Type::findOrFail($id);
-            $category->update([
-                'kode_tipe' => $data['code'],
-                'nama_tipe' => $data['name']
-            ]);
-
-            return $this->respondRedirectMessage('kategori.index');
-        } catch (\Exception $e) {
-            return "{$e->getMessage()}, {$e->getCode()}";
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        $category = Type::find($id);
+        $category->kode_tipe = $request->code;
+        $category->nama_tipe = $request->name;
+        $category->save();
+
+        return redirect()->route('kategori.index');
+
+        Alert::success('Changed Successfully', 'Data Kategori Changed Successfully.');
+
+        return redirect()->route('type.index');
+        
     }
 
     /**
@@ -134,13 +127,9 @@ class TypeController extends Controller
      */
     public function destroy(string $id)
     {
-        try {
-            $category = Type::findOrFail($id);
-            $category->products()->delete();
-            $category->delete();
-            return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus');
-        } catch (\Exception $e) {
-            return "{$e->getMessage()}, {$e->getCode()}";
-        }
+        $category= Type::find($id);
+        $category->products()->delete();
+        $category->delete();
+        return redirect()->route('kategori.index')->with('success','Produk berhasil dihapus');
     }
 }
