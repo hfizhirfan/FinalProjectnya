@@ -35,7 +35,7 @@
                             @foreach ($products as $product)
                                 <tr>
                                     <td>{{ $loop->iteration}}</td>
-                                    <td><img src="{{ Vite::asset('storage/app/public/menu/' . $product->image) }}" alt="Product Image" width="100" height="80"></td>
+                                    <td><img src="{{ asset('storage/menu/' . $product->encrypted_image) }}" alt="Product Image" width="100" height="80"></td>
                                     <td>{{ $product->name_product }}</td>
                                     <td>Rp. {{ $product->price }}</td>
                                     <td>{{ $product->type->nama_tipe }}</td>

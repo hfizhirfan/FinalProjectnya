@@ -71,7 +71,7 @@
 </div>
 @endsection --}}
 
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('content')
     <div class="container-fluid px-4">
         <div class="card shadow mb-4 mt-5">
