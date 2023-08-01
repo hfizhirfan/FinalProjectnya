@@ -32,7 +32,7 @@
                     <tbody>
                         @foreach ($types as $type)
                             <tr>
-                                <td>{{ $type->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $type->kode_tipe }}</td>
                                 <td>{{ $type->nama_tipe }}</td>
                                 <td>@include('admin.type.actions')</td>

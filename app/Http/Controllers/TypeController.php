@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Type;
 use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TypeController extends Controller
 {
@@ -43,7 +43,8 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        $messages = [
+         $messages = [
+
             'required' => ':Attribute harus diisi.'
         ];
     
@@ -96,6 +97,7 @@ class TypeController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         $messages = [
             'required' => ':Attribute harus diisi.'
         ];
@@ -107,6 +109,41 @@ class TypeController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
+
+        $data = request()->except(['_token']);
+
+        try {
+            $validator = Validator::make(
+                $data,
+                [
+                    'code' => 'required|min:1',
+                    'name' => 'required|min:3'
+                ],
+                [
+                    'required' => ':Attribute harus diisi.',
+                    'min' => ':Attribute terlalu pendek.'
+                ],
+                [
+                    'code' => 'Kode Kategori',
+                    'name' => 'Nama Kategori'
+                ]
+            );
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            $category = Type::findOrFail($id);
+            $category->update([
+                'kode_tipe' => $data['code'],
+                'nama_tipe' => $data['name']
+            ]);
+
+            Alert::success('Changed Successfully', 'Menu Data Changed Successfully.');
+
+            return $this->respondRedirectMessage('kategori.index');
+        } catch (\Exception $e) {
+            return "{$e->getMessage()}, {$e->getCode()}";
         }
 
         $category = Type::find($id);
@@ -131,5 +168,16 @@ class TypeController extends Controller
         $category->products()->delete();
         $category->delete();
         return redirect()->route('kategori.index')->with('success','Produk berhasil dihapus');
+        try {
+            $category = Type::findOrFail($id);
+            $category->products()->delete();
+            $category->delete();
+
+            Alert::success('Deleted Successfully', 'Data Menu Deleted Successfully.');
+
+            return redirect()->route('kategori.index');
+        } catch (\Exception $e) {
+            return "{$e->getMessage()}, {$e->getCode()}";
+        }
     }
 }
