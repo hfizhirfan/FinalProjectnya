@@ -27,17 +27,13 @@
             </a>
         </li>
         <li class="nav-item col-md-auto">
-            <a href="#" class="nav-link">
+            <a href="{{route('transaksi.index')}}" class="nav-link">
                 <i class="bi bi-currency-dollar"></i>
                 <span class="">Data Transaksi</span>
             </a>
         </li>
     </ul>
     <div class="dropdown p-3">
-        {{-- <a href="#" class="btn border-none btn-secondary text-white">
-            <i class="bi bi-person-fill"></i>
-            <span class="">Profile</span>
-        </a> --}}
         <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                 {{ Auth::user()->name }}

@@ -84,3 +84,13 @@
     }
 </script>
 @endsection
+
+{{-- @push('scripts')
+    @if(session('timer'))
+        <script>
+            setTimeout(function() {
+                swal.close();
+            }, {{ session('timer') }});
+        </script>
+    @endif
+@endpush --}}

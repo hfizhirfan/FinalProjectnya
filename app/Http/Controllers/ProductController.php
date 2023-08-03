@@ -184,7 +184,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-            $product = Product::find($id); // Mengambil data produk berdasarkan ID
+        $product = Product::find($id); // Mengambil data produk berdasarkan ID
 
         if (!$product) {
             // Jika produk dengan ID tersebut tidak ditemukan, lakukan penanganan error sesuai kebutuhan.
@@ -204,9 +204,9 @@ class ProductController extends Controller
         return redirect()->route('product.index');
     }
 
-    public function downloadFile($employeeId)
+    public function downloadFile($productId)
     {
-        $product = Product::find($employeeId);
+        $product = Product::find($productId);
         $encryptedImage = 'public/menu/'.$product->encrypted_image;
         $downloadImagename = Str::lower($product->name_product.'.jpg');
 

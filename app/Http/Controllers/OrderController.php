@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PDF;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class OrderController extends Controller
 {
@@ -58,7 +59,8 @@ class OrderController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $products=Product::find($latestId);
+
+        $products= Product::find($latestId);
         $harga = $products->price * $request->qty;
         // var_dump($harga);die();
         $order = New Cart;
@@ -69,9 +71,15 @@ class OrderController extends Controller
         $order->no_meja = $request->table_number;
         $order->save();
         $id = $order->id;
-        return redirect()->route('order.exportPdf',[
-            'id'=>$id
-        ]);
+
+        Alert::html('Terima kasih telah memesan!',
+        'Pesanan anda telah diproses, silahkan <a href="' . route('order.exportPdf', ['id' => $id]) . '">cetak struk</a> disini',
+        'success');
+
+        // return redirect()->route('order.exportPdf',[
+        //     'id'=>$id
+        // ]);
+        return redirect()->route('order.index');
     }
 
     /**

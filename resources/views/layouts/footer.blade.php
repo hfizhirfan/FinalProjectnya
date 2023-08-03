@@ -23,11 +23,12 @@
                         <a href="#" class="text-muted" style="text-decoration: none;">
                             <i class="bi bi-tiktok"></i>&nbsp; rumahrasanusantara
                         </a>
+                        <a href="{{ route('login') }}" class="text m-4" style="text-decoration: none;">
+                            Halaman Admin
+                        </a>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>

@@ -20,7 +20,7 @@
             </div>
         </div>
                 <div class="table-responsive border p-3 rounded-">
-                    <table class="table table-bordered table-striped table-hover mb-0 bg-white datatable" id="employeeTable">
+                    <table class="table table-bordered table-striped table-hover mb-0 bg-white datatable" id="productTable">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -53,7 +53,7 @@
 @push('scripts')
     <script type="module">
         $(document).ready(function() {
-            $('#employeeTable').DataTable();
+            $('#productTable').DataTable();
         });
     </script>
 @endpush

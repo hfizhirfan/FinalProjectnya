@@ -2,29 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CartsExport;
+use RealRashid\SweetAlert\Facades\Alert;
 
-class DashboardController extends Controller
+class OrderadminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $pageTitle = 'Dashboard';
+        $orders = Cart::all();
 
-        $productCount = Product::count();
-        $orderCount = Cart::count();
-        $totalHarga = Cart::sum('total');
+        $pageTitle = 'Data Transaksi';
 
-        return view('admin.dashboard.index', [
+        return view('admin.order.index', [
             'pageTitle' => $pageTitle,
-            'product_count' => $productCount,
-            'order_count' => $orderCount,
-            'order_total' => $totalHarga
+            'orders' => $orders
         ]);
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new cartsExport, 'order_report.xlsx');
     }
 
     /**
@@ -72,6 +77,12 @@ class DashboardController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Eloquent
+        Cart::find($id)->delete();
+
+        Alert::success('Deleted Successfully', 'Order Data Deleted Successfully.');
+
+        return redirect()->route('transaksi.index');
+
     }
 }
