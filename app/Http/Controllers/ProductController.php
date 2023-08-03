@@ -184,23 +184,29 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        Product::find($id)->delete();
-        
-        // hapus dari storage
-        if ($product->encrypted_image) {
-            Storage::delete('public/menu/'.$product->encrypted_image);
+        $product = Product::find($id); // Mengambil data produk berdasarkan ID
+
+        if (!$product) {
+            // Jika produk dengan ID tersebut tidak ditemukan, lakukan penanganan error sesuai kebutuhan.
+            // Misalnya, bisa mengarahkan ke halaman error atau menampilkan pesan error.
+            // Contoh: return redirect()->route('product.index')->withErrors('Product not found.');
+        } else {
+            // Hapus dari storage jika produk ditemukan dan memiliki encrypted_image
+            if ($product->encrypted_image) {
+                Storage::delete('public/menu/'.$product->encrypted_image);
+            }
+
+            $product->delete(); // Hapus data produk
+
+            Alert::success('Deleted Successfully', 'Data Menu Deleted Successfully.');
         }
-
-        $employee->delete();
-
-        Alert::success('Deleted Successfully', 'Data Menu Deleted Successfully.');
 
         return redirect()->route('product.index');
     }
 
-    public function downloadFile($employeeId)
+    public function downloadFile($productId)
     {
-        $product = Product::find($employeeId);
+        $product = Product::find($productId);
         $encryptedImage = 'public/menu/'.$product->encrypted_image;
         $downloadImagename = Str::lower($product->name_product.'.jpg');
 

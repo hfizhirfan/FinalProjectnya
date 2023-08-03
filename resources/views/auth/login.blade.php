@@ -43,9 +43,12 @@
                     </div>
                     <hr>
                     <div class="row pt-2">
-                        <button type="submit" class="btn btn-dark btn-lg mt-3 ">
-                            <i class="bi bi-box-arrow-right"></i> {{ __('Login') }}
-                        </button>
+                            <a href="{{ route('home') }}" class="btn btn-secondary btn-lg col-md-6">
+                                <i class="bi-arrow-left-circle"></i> {{ __('Back') }}
+                            </a>
+                            <button type="submit" class="btn btn-dark btn-lg col-md-6">
+                                <i class="bi bi-box-arrow-right"></i> {{ __('Login') }}
+                            </button>
                     </div>
                 </form>
             </div>

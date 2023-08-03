@@ -1,63 +1,21 @@
-{{-- Untuk side bar --}}
-@php
-    $currentRouteName = Route::currentRouteName();
-@endphp
-
-<div class="side-navbar bg-dark active-nav d-flex justify-content-between flex-wrap flex-column pt-2" id="sidebar">
-    <ul class="nav flex-column text-white w-100">
-        <a class="text-decoration-none mt-3 align-items-center text-white text-center" href="#">
-            <img style="width: 75%;" src="{{ Vite::asset('resources/images/Group 26.png')}}" alt="image">
+<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #CC040C;">
+    <div class="container">
+        <a href="{{ route('home') }}" class="navbar-brand mb-0 h1">
+            <img class="img-fluid" src="{{ Vite::asset('resources/images/logonya.png') }}" alt="main logo">
         </a>
-        <li class="nav-item col-md-auto mt-3">
-            <a href="{{route('dashboard.index')}}" class="nav-link">
-                <i class="bi bi-house-fill pe-1"></i>
-                <span class="">Dashboard</span>
-            </a>
-        </li>
-        <li class="nav-item col-md-auto">
-            <a href="{{route('kategori.index')}}" class="nav-link">
-                <i class="bi bi-tags-fill"></i>
-                <span class="">Data Kategori</span>
-            </a>
-        </li>
-        <li class="nav-item col-md-auto">
-            <a href="{{route('product.index')}}" class="nav-link">
-                <i class="bi bi-basket-fill"></i>
-                <span class="">Data Menu</span>
-            </a>
-        </li>
-        <li class="nav-item col-md-auto">
-            <a href="#" class="nav-link">
-                <i class="bi bi-currency-dollar"></i>
-                <span class="">Data Transaksi</span>
-            </a>
-        </li>
-    </ul>
-    <div class="dropdown p-3">
-        {{-- <a href="#" class="btn border-none btn-secondary text-white">
-            <i class="bi bi-person-fill"></i>
-            <span class="">Profile</span>
-        </a> --}}
-        <li class="nav-item dropdown">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                {{ Auth::user()->name }}
-            </a>
 
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item text-danger" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a>
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-            </div>
-        </li>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <hr class="d-lg-none text-white-50">
+
+        <ul class="navbar-nav flex-row flex-wrap ms-auto">
+            <li class="nav-item col-2 col-md-auto me-2 me-md-4"><a href="{{ route('home') }}" class="nav-link active navbar-text fs-5">Home</a></li>
+            <li class="nav-item col-2 col-md-auto me-2 me-md-4"><a href="{{ route('order.index') }}" class="nav-link active navbar-text fs-5">Menu</a></li>
+
+        </ul>
+      </div>
     </div>
-</div>
-<div class="my-container active-cont">
-    <nav class="navbar top-navbar navbar-light bg-dark px-5 d-flex">
-        <a class="btn border-0 text-white" id="menu-btn"><i class="bi bi-list"></i></a>
-    </nav>
+</nav>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Cart;
 
 class DashboardController extends Controller
 {
@@ -15,10 +16,14 @@ class DashboardController extends Controller
         $pageTitle = 'Dashboard';
 
         $productCount = Product::count();
+        $orderCount = Cart::count();
+        $totalHarga = Cart::sum('total');
 
         return view('admin.dashboard.index', [
             'pageTitle' => $pageTitle,
-            'product_count' => $productCount
+            'product_count' => $productCount,
+            'order_count' => $orderCount,
+            'order_total' => $totalHarga
         ]);
     }
 
