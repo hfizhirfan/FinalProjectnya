@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
     <div class="container-fluid p-4 row">
@@ -11,7 +11,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $product_count }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <i class="bi bi-basket-fill fs-1"></i>
                         </div>
                     </div>
                 </div>
@@ -22,12 +22,11 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Earnings (Annual)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Data Transaksi</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $order_count }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="bi bi-bar-chart-fill fs-1"></i>
                         </div>
                     </div>
                 </div>
@@ -38,12 +37,11 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Earnings (Annual)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total pendapatan</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Rp. {{ $order_total }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="bi bi-cash-coin fs-1"></i>
                         </div>
                     </div>
                 </div>

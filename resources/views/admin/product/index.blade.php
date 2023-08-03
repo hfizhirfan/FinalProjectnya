@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
 <div class="container-fluid p-4">
@@ -20,7 +20,7 @@
             </div>
         </div>
                 <div class="table-responsive border p-3 rounded-">
-                    <table class="table table-bordered table-striped table-hover mb-0 bg-white datatable" id="employeeTable">
+                    <table class="table table-bordered table-striped table-hover mb-0 bg-white datatable" id="productTable">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -34,8 +34,8 @@
                         <tbody>
                             @foreach ($products as $product)
                                 <tr>
-                                    <td>{{ $product->id }}</td>
-                                    <td><img src="{{ Vite::asset('resources/images/menu/' . $product->image) }}" alt="Product Image" width="100" height="80"></td>
+                                    <td>{{ $loop->iteration}}</td>
+                                    <td><img src="{{ asset('storage/menu/' . $product->encrypted_image) }}" alt="Product Image" width="100" height="80"></td>
                                     <td>{{ $product->name_product }}</td>
                                     <td>Rp. {{ $product->price }}</td>
                                     <td>{{ $product->type->nama_tipe }}</td>
@@ -53,7 +53,7 @@
 @push('scripts')
     <script type="module">
         $(document).ready(function() {
-            $('#employeeTable').DataTable();
+            $('#productTable').DataTable();
         });
     </script>
 @endpush

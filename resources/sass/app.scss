@@ -25,8 +25,8 @@ body {
     transition: 0.5s;
 }
 
-.nav-link:active,
-.nav-link:hover {
+.nav-item:active,
+.nav-item:hover {
     background-color: blue;
 }
 
@@ -37,7 +37,7 @@ body {
 }
 
 .nav-item a.active,
-.nav-item a:hover{
+.nav-item a:hover {
     // color: #00FFF5;
     color: white;
 }
